@@ -4,7 +4,7 @@
    - https://leetcode.com/problems/set-matrix-zeroes/
 2. Pascal's Triangle:
    - https://leetcode.com/problems/pascals-triangle/
-3. Next Permutation:
+3. Next Permutation **[IMP]**:
    - https://leetcode.com/problems/next-permutation/
 4. Kadane's Algorithm:
    - https://leetcode.com/problems/maximum-subarray/
