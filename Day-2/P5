@@ -1,0 +1,24 @@
+public class Solution {
+    public int[] repeatedNumber(int[] A) {
+        int l= A.length;
+        boolean[] c=new boolean[l+1];
+        int x=0,y=0;
+        for(int i=0;i<l;i++)
+        {
+            int ce = A[i];
+            if(c[ce])
+                x=ce;
+            c[ce]=true;
+        }
+        for(int i=1;i<=l;i++)
+        {
+            if(!c[i])
+            {
+                y=i;
+                break;
+            }
+        }
+        int[] res = {x,y};
+        return res;
+    }
+}

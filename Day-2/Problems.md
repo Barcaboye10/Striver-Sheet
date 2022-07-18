@@ -10,3 +10,5 @@
    - https://leetcode.com/problems/find-the-duplicate-number/
 5. Repeat and Missing Number:
    - https://www.interviewbit.com/problems/repeat-and-missing-number-array/
+6. Inversion of Array:
+   - https://www.codingninjas.com/codestudio/problems/count-inversions_615
