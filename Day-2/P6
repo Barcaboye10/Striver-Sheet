@@ -1,0 +1,60 @@
+public class Solution {
+    public static long getInversions(long arr[], int n) 
+    {
+        return mergeSort(arr, 0, n-1);
+    }
+    public static long mergeSort(long[] arr, int s, int e)
+    {
+        if(s>=e)
+            return 0;
+        long invCount =0;
+        int m=s+(e-s)/2;
+        invCount+= mergeSort(arr, s, m);
+        invCount+= mergeSort(arr, m+1,e);
+        invCount+= merge(arr, s, m+1, e);
+        return invCount;
+    }
+    public static long merge(long[] arr, int s1, int s2, int e)
+    {
+        long invCount = 0;
+        int rs = e-s2+1;
+        int ls = s2-s1;
+        Long[] L = new Long[ls];
+        Long[] R = new Long[rs];
+        
+        for(int i=0;i<ls;i++)
+            L[i]=arr[s1+i];
+        for(int i=0;i<rs;i++)
+            R[i]=arr[s2+i];
+        
+        int x=0, y=0, k=s1;
+        while(x<ls && y<rs)
+        {
+            if(L[x]<=R[y])
+            {
+                arr[k]=L[x];
+                x++;
+            }
+            else
+            {
+                arr[k]=R[y];
+                y++;
+                invCount = invCount + (ls-x); 
+            }
+            k++;
+        }
+        while(x<ls)
+        {
+            arr[k]=L[x];
+            x++;
+            k++;
+        }
+        while(y<rs)
+        {
+            arr[k]=R[y];
+            y++;
+            k++;
+        }
+        return invCount;
+    }
+}

@@ -1,0 +1,27 @@
+// Try to think of the approach, easy to figure out. Think, and then move on to the next line.
+// When you have figured out the logic, write your code, and go through this link(or the code below), and read the code, brilliantly written.
+// https://leetcode.com/problems/merge-intervals/discuss/21222/A-simple-Java-solution
+
+class Solution {
+	public int[][] merge(int[][] intervals) {
+		if (intervals.length <= 1)
+			return intervals;
+
+		// Sort by ascending starting point
+		Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
+
+		List<int[]> result = new ArrayList<>();
+		int[] newInterval = intervals[0];
+		result.add(newInterval);
+		for (int[] interval : intervals) {
+			if (interval[0] <= newInterval[1]) // Overlapping intervals, move the end if needed
+				newInterval[1] = Math.max(newInterval[1], interval[1]);
+			else {                             // Disjoint intervals, add the new interval to the list
+				newInterval = interval;
+				result.add(newInterval);
+			}
+		}
+
+		return result.toArray(new int[result.size()][]);
+	}
+}
