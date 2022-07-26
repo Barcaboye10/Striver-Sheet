@@ -1,0 +1,53 @@
+// Below two solutions have the same TC and SC. They even have the same approach. The only thing better in second solution is that we have used the matrix indexing smartly, which is not necessary, but might be good to know. Do check out second solution once.
+class Solution1
+{
+    public boolean searchMatrix(int[][] matrix, int target) 
+    {
+            if(matrix.length == 0 || matrix[0].length == 0)
+                    return false;
+            int currRow=0;
+            while(currRow < matrix.length)
+            {
+                    int A=matrix[currRow][0];
+                    int B=matrix[currRow][matrix[0].length-1];
+                    if(target< A)
+                            return false;
+                    else if(target == A || target == B)
+                            return true;
+                    else if(target > A && target < B)
+                            return searchInRow(matrix[currRow],target);
+                    else if(target > B)
+                            currRow++;
+            }
+        return false;
+    }
+        public boolean searchInRow(int[] arr,int x)
+        {
+                for(int i=0;i<arr.length;i++)
+                        if(arr[i]==x)
+                                return true;
+                return false;
+        }
+}
+
+
+class Solution2 {
+    public boolean searchMatrix(int[][] m, int t) 
+    {
+        int r=m.length;
+        int c=m[0].length;
+        int l=0, h=r*c-1;
+        while(l<=h)
+        {
+            int mid = l+(h-l)/2;
+            int ce = m[mid/c][mid%c];
+            if(ce == t)
+                return true;
+            else if(t>ce)
+                l=mid+1;
+            else
+                h=mid-1;
+        }
+        return false;
+    }
+}

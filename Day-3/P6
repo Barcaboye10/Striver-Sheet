@@ -1,0 +1,70 @@
+// Try yourself first, and try hard. Then move on to the solution.
+class Solution {
+    public int reversePairs(int[] nums) 
+    {
+        return mergeSort(nums, 0, nums.length-1);
+    }
+    public int mergeSort(int[] arr, int s, int e)
+    {
+        if(s>=e)
+            return 0;
+        int invCount =0;
+        int m=s+(e-s)/2;
+        invCount+= mergeSort(arr, s, m);
+        invCount+= mergeSort(arr, m+1,e);
+        invCount+= merge(arr, s, m, e);
+        return invCount;
+    }
+    public static int merge(int[] arr, int s, int m, int e)
+    {
+        int rs = e-m;
+        int ls = m-s+1;
+        int [] L = new int[ls];
+        int [] R = new int[rs];
+        
+        for(int i=0;i<ls;i++)
+            L[i]=arr[s+i];
+        for(int i=0;i<rs;i++)
+            R[i]=arr[m+1+i];
+        
+        int invCount = 0;
+        int j=0;
+        for(int i=0;i<ls;i++)
+        {
+            while(j<rs && L[i] > (2*(long)R[j]))
+            {
+                j++;
+            }
+            invCount+=j;// You were stuck here, when solving for the first time. Think how and why.
+        }
+        
+        int x=0, y=0, k=s;
+        while(x<ls && y<rs)
+        {
+            if(L[x]<=R[y])
+            {
+                arr[k]=L[x];
+                x++;
+            }
+            else
+            {
+                arr[k]=R[y];
+                y++;
+            }
+            k++;
+        }
+        while(x<ls)
+        {
+            arr[k]=L[x];
+            x++;
+            k++;
+        }
+        while(y<rs)
+        {
+            arr[k]=R[y];
+            y++;
+            k++;
+        }
+        return invCount;
+    }
+}

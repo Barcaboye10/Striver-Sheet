@@ -1,0 +1,44 @@
+// Do try to build up from P3 before moving on to the solution.
+// https://leetcode.com/problems/majority-element-ii/discuss/1098995/Explanation-about-Boyer-Moore-vote
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        int fm = Integer.MIN_VALUE, sm = Integer.MIN_VALUE;
+        int fmCount =0, smCount = 0;
+        List<Integer> res = new ArrayList<>();
+        for(int num: nums)
+        {
+            if(num == fm)
+                fmCount++;
+            else if(num == sm)
+                smCount++;
+            else if(fmCount == 0)
+            {
+                fm = num;
+                fmCount = 1;
+            }
+            else if(smCount == 0)
+            {
+                sm=num;
+                smCount = 1;
+            }  
+            else
+            {
+                fmCount--;
+                smCount--;
+            }
+        }
+        fmCount = smCount = 0;
+        for(int num: nums)
+        {
+            if(num == fm)
+                fmCount++;
+            else if(num == sm)
+                smCount++;
+        }
+        if(fmCount > nums.length/3)
+            res.add(fm);
+        if(smCount > nums.length/3)
+            res.add(sm);
+        return res;
+    }
+}

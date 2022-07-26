@@ -1,0 +1,32 @@
+// Not a very difficult question to solve in O(n) TC. Try on your own and try hard, then move on to the solution
+// https://leetcode.com/problems/longest-consecutive-sequence/discuss/1127908/2-Approaches-for-your-interview(hindi)
+class Solution {
+    public int longestConsecutive(int[] nums)
+    {
+        if(nums.length == 0)
+            return 0;
+        Map<Integer, Integer> mp = new HashMap<>();
+        for(int e:nums)
+        {
+            if(!mp.containsKey(e))
+                mp.put(e,1);
+        }
+        for(int key: mp.keySet())
+        {
+            if(mp.containsKey(key-1))
+                mp.replace(key,0);
+        }
+        int res=1;
+        for(int key:mp.keySet())
+        {
+            if(mp.get(key) == 1)
+            {
+                int i=1;
+                while(mp.containsKey(key+i))
+                    i++;
+                res=Math.max(res, i);
+            }
+        }
+        return res;
+    }
+}

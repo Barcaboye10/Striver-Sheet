@@ -1,0 +1,24 @@
+// Excellent intuition. Try to figure it out hard, since it's not very tough. Then, if failed, try to figure the intuition by reading the code. If you still don't get it, check Striver's solution on his site.
+class Solution
+{
+    int maxLen(int arr[], int n)
+    {
+        int l=arr.length;
+        int preSum =0, res = 0;
+        Map<Integer, Integer> mp = new HashMap<>();
+        for(int i=0;i<l;i++)
+        {
+            preSum +=arr[i];
+            if(preSum == 0)
+                res = i+1;
+            else
+            {
+                if(mp.containsKey(preSum))
+                    res = Math.max(res, i-mp.get(preSum));
+                else
+                    mp.put(preSum, i);
+            }
+        }
+        return res;
+    }
+}

@@ -1,0 +1,32 @@
+// Iterative Solution
+class Solution {
+    public ListNode reverseList(ListNode head) 
+    {
+        if(head==null || head.next == null)
+            return head;
+        ListNode curr = head, prev=null;
+        while(curr!=null)
+        {
+            ListNode next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        head=prev;
+        return head;
+    }
+}
+// Recursive Solution : Try to figure out on your own first.
+class Solution {
+    public ListNode reverseList(ListNode head) 
+    {
+        if(head==null || head.next == null)
+            return head;
+        ListNode newHead = reverseList(head.next);
+        // Next two lines are the key, figure out what they are for.
+        head.next.next = head;
+        head.next =null;
+        
+        return newHead;
+    }
+}
