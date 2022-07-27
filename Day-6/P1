@@ -1,0 +1,38 @@
+// Think of first solution by yourself. Intuitve, and useful. But do we give a look to the link below AFTER you have solved with the first method, it is a beautiful solution.
+https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49785/Java-solution-without-knowing-the-difference-in-len!
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null || headB==null)
+            return null;
+        int la=length(headA);
+        int lb=length(headB);
+        while(la>lb)
+        {
+            headA=headA.next;
+            la--;
+        }
+        while(lb>la)
+        {
+            headB = headB.next;
+            lb--;
+        }
+        while(headA!=headB)
+        {
+            headA=headA.next;
+            headB=headB.next;
+        }
+        return headA;
+    }
+    private int length(ListNode h)
+    {
+        if(h==null)
+            return 0;
+        int l=0;
+        while(h!=null)
+        {
+            l++;
+            h=h.next;
+        }
+        return l;
+    }
+}
