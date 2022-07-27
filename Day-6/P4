@@ -1,0 +1,68 @@
+// First way is pretty much brute force. but still in O(1) SC. Solve it that way. Then try this follow up question : Can you solve this without modifying the input LL? Second solution includes this. Must try, and must read.(Note that it is not an O(1) space solution)
+class Solution {
+    public boolean isPalindrome(ListNode head) 
+    {
+        if(head==null)
+            return true;
+        ListNode slow=head, fast=head;
+        while(fast.next!=null && fast.next.next!=null)
+        {
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        ListNode tail=slow.next;
+        slow.next=null;
+        ListNode head2=rev(tail);
+        ListNode curr1=head, curr2=head2;
+        while(curr1!=null && curr2!=null)
+        {
+            if(curr1.val!=curr2.val)
+                return false;
+            curr1=curr1.next;
+            curr2=curr2.next;
+        }
+        return true;
+        
+    }
+    public static ListNode rev(ListNode head)
+    {
+        ListNode prev=null;
+        ListNode curr=head;
+        while(curr!=null)
+        {
+            ListNode nxt=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=nxt;
+        }
+        return prev;
+    }
+}
+
+// Second solution
+
+class Solution {
+    public boolean isPalindrome(ListNode head) 
+    {
+        if(head==null)
+            return true;
+        ListNode slow=head, fast=head;
+        Stack<Integer> s= new Stack<>();
+        while(fast!=null && fast.next!=null)
+        {
+            s.push(slow.val);
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        if(fast!=null)
+            slow=slow.next;
+        while(slow!=null && !s.isEmpty())
+        {
+            int c=s.pop();
+            if(c!=slow.val)
+                return false;
+            slow=slow.next;
+        }
+        return true;
+    }
+}
