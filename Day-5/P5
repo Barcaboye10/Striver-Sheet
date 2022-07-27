@@ -1,0 +1,90 @@
+// This is the solution I wrote, but this same solution can be written in a much better way, which will not involve to write the case when of the list pointers becomes null, seperately. Try yourself, then check the second solution.
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode resHead=null, resCurr=null;
+        int carry = 0;
+        while(l1!=null && l2!=null)
+        {
+            int num=l1.val + l2.val + carry;
+            carry=0;
+            if(num > 9)
+            {
+                carry=1;
+                num=num%10;
+            }
+            ListNode resNew=new ListNode(num, null);
+            if(resHead == null)
+            {
+                resHead=resCurr=resNew;
+            }
+            else
+            {
+                resCurr.next = resNew;
+                resCurr=resNew;
+            }
+            l1=l1.next;
+            l2=l2.next;
+        }
+        while(l1!=null)
+        {
+            int num=l1.val+carry;
+            carry=0;
+            if(num > 9)
+            {
+                carry=1;
+                num=num%10;
+            }
+            ListNode resNew=new ListNode(num, null);
+            resCurr.next = resNew;
+            resCurr=resNew;
+            l1=l1.next;
+        }
+        while(l2!=null)
+        {
+            int num=l2.val+carry;
+            carry=0;
+            if(num > 9)
+            {
+                carry=1;
+                num=num%10;
+            }
+            ListNode resNew=new ListNode(num, null);
+            resCurr.next = resNew;
+            resCurr=resNew;
+            l2=l2.next;
+        }
+        if(carry!=0)
+            resCurr.next = new ListNode(1,null);
+        return resHead;
+    }
+}
+
+// Second Solution
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2)
+    {
+            ListNode dummy=new ListNode();
+            ListNode temp=dummy;
+            int carry=0;
+            while(l1!=null || l2!=null || carry==1)
+            {
+                    int sum=0;
+                    if(l1!=null)
+                    {
+                            sum=sum+l1.val;
+                            l1=l1.next;
+                    }
+                    if(l2!=null)
+                    {
+                            sum=sum+l2.val;
+                            l2=l2.next;
+                    }
+                    sum=sum+carry;
+                    carry=sum/10;
+                    ListNode n=new ListNode(sum%10);
+                    temp.next=n;
+                    temp=n;
+            }
+            return dummy.next;        
+    }
+}

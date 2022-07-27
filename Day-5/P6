@@ -1,0 +1,16 @@
+// smart solution, think hard(not that difficult)
+class Solution {
+    public void deleteNode(ListNode node) 
+    {
+        ListNode curr=node.next;
+        ListNode prev=node;
+        while(curr.next!=null)
+        {
+            prev.val=curr.val;
+            prev=curr;
+            curr=curr.next;
+        }
+        prev.val=curr.val;
+        prev.next=null;        
+    }
+}
