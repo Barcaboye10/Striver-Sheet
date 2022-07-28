@@ -1,0 +1,58 @@
+class Solution
+{
+    Node flatten(Node root)
+    {
+	    if(root==null || root.next == null)
+	        return root;
+	    Node A=root, B=root.next;
+	    Node resHead=null;
+	    while(B!=null)
+	    {
+	        Node C=B.next;
+	        A.next=B.next=null;
+	        Node dummy=merge(A,B);
+	        if(resHead==null)
+	            resHead=dummy;
+	        dummy.next=C;
+	        A=dummy;
+	        B=dummy.next;
+	    }
+	    return A;
+    }
+    Node merge(Node l1,Node l2)
+    {
+        if (l1 == null) 
+            return l2; 
+        if (l2 == null) 
+            return l1;
+        Node dummy=new Node(0);
+        Node temp=dummy;
+        while(l1!=null && l2!=null)
+        {
+            Node n;
+            if(l1.data<=l2.data)
+            {
+                n=l1;
+                l1=l1.bottom;
+            }
+            else
+            {
+               n=l2;
+               l2=l2.bottom;
+            }
+            temp.bottom=n;
+            temp=n;
+        }
+        if(l1==null)
+        {
+            temp.bottom=l2;
+        }
+        if(l2==null)
+        {
+            temp.bottom=l1;
+        }
+        Node res=dummy.bottom;
+        dummy.bottom=null;
+        return res;
+    }
+}
