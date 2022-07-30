@@ -1,0 +1,29 @@
+// Another intuitive and important question.
+class Solution
+{
+    int[] JobScheduling(Job arr[], int n)
+    {
+        Arrays.sort(arr, (a,b) -> b.profit-a.profit);
+        int slots=0;
+        for(Job e:arr)
+            slots=Math.max(slots, e.deadline);
+        boolean[] occSlots = new boolean[slots+1];
+        int jobsDone=0,totalProfit=0;
+        for(Job e:arr)
+        {
+            for(int i=e.deadline;i>0;i--)
+            {
+                if(occSlots[i]==false)
+                {
+                    occSlots[i]=true;
+                    jobsDone++;
+                    totalProfit+=e.profit;
+                    break;
+                }
+            }
+        }
+        int[] res={jobsDone, totalProfit};
+        return res;
+        
+    }
+}
