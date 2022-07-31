@@ -1,0 +1,35 @@
+// SUPER IMPORTANT QUESTION. Try on your own, and once you are done, read this solution, and understand the meaning and purpose of every line written.
+// Also, watch this for explanation: https://www.youtube.com/watch?v=mcg4qKbAmmY
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res=new ArrayList<>();
+        List<Integer> op = new ArrayList<>();
+        helper(res, op, nums, 0, false);
+        return res;
+    }
+    public void helper(List<List<Integer>> res, List<Integer> op, int[] nums, int idx, boolean prevTaken) {
+        if(idx==nums.length)
+        {
+            res.add(new ArrayList<>(op));
+            /*
+             * Why not res.add(op)?
+             * Because in further calls, we pass op in arguments
+             * Now, whenever we make any change in "op", it will also impact the list stored in "res"
+             * Thus, we store a copy of "op" in res.
+             */
+            return;
+        }
+        helper(res,op,nums,idx+1,false);
+        if(idx>=1 && nums[idx-1]==nums[idx] && prevTaken==false)
+            return;
+        op.add(nums[idx]);
+        helper(res, op, nums, idx+1, true);
+        op.remove(op.size()-1);
+        /*
+         * Why is line 28 needed?
+         * so that when it goes to other branch of upper recursive call, we do not have this element already stored in op.
+         */
+    }
+    
+}

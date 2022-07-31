@@ -1,0 +1,26 @@
+// Brute force method requires recursion. So this problem is not exactly based on recursion.
+class Solution {
+    public String getPermutation(int n, int k) {
+        ArrayList<Integer> l=new ArrayList<>();
+        int f=1;
+        for(int i=1;i<n;i++)
+        {
+            l.add(i);
+            f=f*i;
+        }
+        l.add(n);
+        k--;// Most important line. Why? because we may very easily miss that we need to get 'k' as per 0 based indexing. Read Striver's solution.
+        String res="";
+        while(true) {
+            res=res+l.get(k/f);
+            l.remove(k/f);
+            n--;
+            System.out.println(n+", "+l.size());
+            if(n==0)
+                break;
+            k=k%f;
+            f=f/n;
+        }
+        return res;
+    }
+}
