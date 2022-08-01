@@ -1,0 +1,50 @@
+// Very important question. Try on your own and try hard.
+class Solution {
+    public void solveSudoku(char[][] board) {
+        helper(board);
+    }
+    public boolean helper(char[][] board) {
+        for(int r=0;r<9;r++)
+        {
+            for(int c=0;c<9;c++)
+            {
+                if(board[r][c] == '.')
+                {
+                    for(char n='1';n<='9';n++)
+                    {
+                        if(isSafe(board,r,c,n))
+                        {
+                            board[r][c]=n;
+                            if(helper(board))
+                                return true;
+                            board[r][c]='.';
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean isSafe(char[][] board, int r, int c, char n) {
+        for(int i=0;i<9;i++)
+        {
+            if(board[r][i]==n)
+                return false;
+            if(board[i][c]==n)
+                return false;
+        }
+        //next two lines are very important lines, should be memorised
+        int bsr=r-r%3;// small box's starting row
+        int bsc=c-c%3;// small box's starting column.
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                if(board[bsr+i][bsc+j]==n)
+                    return false;
+            }
+        }
+        return true;
+    }
+}

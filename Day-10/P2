@@ -1,0 +1,60 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res=new ArrayList<>();
+        int[][] board=new int[n][n];
+        nQueens(board,0,n,res);
+        return res;
+    }
+    public void nQueens(int[][] board, int r, int N, List<List<String>> res) {
+        if(r==N)
+        {
+            print(board, N, res);
+            return;
+        }
+        for(int c=0;c<N;c++)
+        {
+            if(isSafe(board, r, c, N))
+            {
+                board[r][c]=1;
+                nQueens(board, r+1, N, res);
+                board[r][c]=0;
+            }
+        }
+    }
+    public boolean isSafe(int[][] board, int r, int c, int N) {
+        for(int i=r-1;i>=0;i--)
+        {
+            if(board[i][c]==1)
+                return false;
+        }
+//         upper left diagonal
+        for(int i=r-1, j=c-1;i>=0 && j>=0;i--, j--)
+        {
+            if(board[i][j]==1)
+                return false;
+        }
+//         upper right diagonal
+        for(int i=r-1, j=c+1;i>=0 && j<N;i--, j++)
+        {
+            if(board[i][j]==1)
+                return false;
+        }
+        return true;
+    }
+    public void print(int[][] board, int N, List<List<String>> res) {
+        List<String> curr=new ArrayList<>();
+        for(int i=0;i<N;i++)
+        {
+            String row="";
+            for(int j=0;j<N;j++)
+            {
+                if(board[i][j]==1)
+                    row=row+"Q";
+                else
+                    row=row+".";
+            }
+            curr.add(row);
+        }
+        res.add(curr);
+    }
+}
