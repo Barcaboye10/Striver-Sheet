@@ -1,0 +1,51 @@
+class Solution {
+    public static ArrayList<String> findPath(int[][] m, int n) 
+    {
+        ArrayList<String> paths=new ArrayList<>();
+        boolean[][] vis=new boolean[n][n];
+        path(0,0,m,n,vis,paths,"");
+        return paths;
+    }
+    public static boolean isSafe(int r, int c, int[][] m, int n, boolean[][]vis)
+    {
+        if(r==-1||c==-1||r==n||c==n||vis[r][c]||m[r][c]==0)
+            return false;
+        return true;
+    }
+    public static void path(int r, int c, int[][] m, int n, boolean[][] vis, ArrayList<String> paths, String s)
+    {
+        if(r==-1||c==-1||r==n||c==n||vis[r][c]||m[r][c]==0)
+            return;
+        if(r==n-1 && c==n-1)
+        {
+            paths.add(s);
+            return;
+        }
+        vis[r][c]=true;
+        //Downwards
+        if(isSafe(r+1,c,m,n,vis))
+        {
+            String sn=s+"D";
+            path(r+1,c,m,n,vis,paths,sn);
+        }
+        //Leftwards
+        if(isSafe(r,c-1,m,n,vis))
+        {
+            String sn=s+"L";
+            path(r,c-1,m,n,vis,paths,sn);
+        }
+        //Rightwards
+        if(isSafe(r,c+1,m,n,vis))
+        {
+            String sn=s+"R";
+            path(r,c+1,m,n,vis,paths,sn);
+        }
+        //Upwards
+        if(isSafe(r-1,c,m,n,vis))
+        {
+            String sn=s+"U";
+            path(r-1,c,m,n,vis,paths,sn);
+        }
+        vis[r][c]=false;
+    }
+}
